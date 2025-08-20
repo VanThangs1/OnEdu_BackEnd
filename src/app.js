@@ -2,10 +2,9 @@
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
-const morgan = require("morgan");
 const path = require("path");
 require("dotenv").config();
-
+const logger = require("./config/logger");
 // Import routes
 // const authRoutes = require("./routes/auth.routes");
 // const userRoutes = require("./routes/user.routes");
@@ -20,7 +19,9 @@ app.use(express.json());                // Đọc JSON body
 app.use(express.urlencoded({ extended: true })); // Đọc form data
 app.use(cors());                        // Cho phép CORS
 app.use(helmet());                      // Bảo mật headers
-app.use(morgan("dev"));                 // Log request
+
+// Middleware log request
+app.use(logger);
 
 // ===== Public folder =====
 // Ví dụ: public/logo.png -> http://localhost:3000/logo.png
